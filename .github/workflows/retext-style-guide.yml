@@ -11,19 +11,22 @@ jobs:
 
     steps:
 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Upgrade npm to latest version
+        run: npm install -g npm@latest
+
       - name: Print npm version
         run: npm --version
 
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-      # - name: Install Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '14'
-
-      # - name: Install dependencies
-      #   run: npm install
+      - name: Install dependencies
+        run: npm install
 
       # - name: Get changed lines
       #   id: get_changed_lines
