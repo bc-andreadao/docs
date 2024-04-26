@@ -34,10 +34,12 @@ jobs:
         env:
           CHANGED_LINES_FILE: changed_lines.env
 
-      - name: Load changed lines from environment file
+      - name: Lint changed lines
         run: |
           source $CHANGED_LINES_FILE
-          echo "$CHANGED_LINES" | xargs -I {} npx remark --use remark-lint {}
+          while IFS= read -r line; do
+            echo "$line" | xargs npx remark --use remark-lint
+          done <<< "$CHANGED_LINES"
 
 
 # name: remark
