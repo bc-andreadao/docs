@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+  
+      - name: Print npm version
+        run: npm --version
+          
+      - name: Upgrade npm to latest version
+        run: npm install -g npm@latest
+
       - name: Print npm version
         run: npm --version
 
