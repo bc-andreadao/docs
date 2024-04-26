@@ -39,7 +39,7 @@ jobs:
       - name: Load changed lines from environment file
         run: |
           echo "Value of CHANGED: $CHANGED"
-#         echo "$CHANGED" | xargs npx remark --use remark-lint
+          echo "$CHANGED" | xargs npx remark --use remark-lint
 
 
 
