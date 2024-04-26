@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BEFORE_COMMIT = ${{ github.event.before }}
-      AFTER_COMMIT = ${{ github.sha }}
+      BEFORE_COMMIT: ${{ github.event.before }}
+      AFTER_COMMIT: ${{ github.sha }}
 
     steps:
 
