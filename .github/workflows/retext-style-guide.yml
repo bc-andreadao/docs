@@ -10,27 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Print npm version
+        run: npm --version
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '14'
 
-      - name: Get changed lines
-        id: get_changed_lines
-        run: |
-          CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
-          echo "::set-output name=changed_lines::${CHANGED_LINES}"
+      # - name: Install dependencies
+      #   run: npm install
 
-      - name: Lint changed lines
-        run: |
-          # Use your linting command
-          echo "${{ steps.get_changed_lines.outputs.changed_lines }}" | xargs npx remark --use remark-lint
+      # - name: Get changed lines
+      #   id: get_changed_lines
+      #   run: |
+      #     CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
+      #     echo "::set-output name=changed_lines::${CHANGED_LINES}"
+
+      # - name: Lint changed lines
+      #   run: |
+      #     # Use your linting command
+      #     echo "${{ steps.get_changed_lines.outputs.changed_lines }}" | xargs npx remark --use remark-lint
 
 
 # name: remark
