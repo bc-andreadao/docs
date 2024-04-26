@@ -9,10 +9,6 @@ jobs:
   lint_changed_lines:
     runs-on: ubuntu-latest
 
-    env:
-      BEFORE_COMMIT: ${{ github.event.before }}
-      AFTER_COMMIT: ${{ github.sha }}
-
     steps:
 
       - name: Checkout code
@@ -33,8 +29,8 @@ jobs:
       - name: Get changed lines
         id: get_changed_lines
         run: |
-          echo "${BEFORE_COMMIT} and ${AFTER_COMMIT}"
-          CHANGED_LINES=$(git diff --unified=0 f279843372df9bb16931860c982f97c0bf23431d bba786882ef4c995026fd0f076fa56d1e6aff8a3 | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
+          git fetch origin
+          CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
           echo "Value of changed lines: ${CHANGED_LINES}"
           echo "CHANGED=${CHANGED_LINES}" >> $GITHUB_ENV
 
