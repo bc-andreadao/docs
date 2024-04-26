@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: test
+          fetch-depth: 0
 
       - name: Upgrade npm to latest version
         run: npm install -g npm@latest
@@ -31,7 +32,7 @@ jobs:
       - name: Get changed lines
         id: get_changed_lines
         run: |
-          CHANGED_LINES=$(git diff --unified=0 @{u} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
+          CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
           echo "Value of changed lines: ${CHANGED_LINES}"
           echo "CHANGED=${CHANGED_LINES}" >> $GITHUB_ENV
 
