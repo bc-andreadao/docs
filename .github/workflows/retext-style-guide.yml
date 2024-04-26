@@ -29,9 +29,9 @@ jobs:
       - name: Get changed lines
         id: get_changed_lines
         run: |
-          echo "${{ github.event.before }}"
-          echo "${{ github.sha }}"
-          CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
+          echo "BEFORE_COMMIT = ${{ github.event.before }}"
+          echo "AFTER_COMMIT = ${{ github.sha }}"
+          CHANGED_LINES=$(git diff --unified=0 ${BEFORE_COMMIT} ${AFTER_COMMIT} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
           echo "Value of changed lines: ${CHANGED_LINES}"
           echo "CHANGED=${CHANGED_LINES}" >> $GITHUB_ENV
 
