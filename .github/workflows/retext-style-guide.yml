@@ -26,11 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # - name: Get changed lines
-      #   id: get_changed_lines
-      #   run: |
-      #     CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
-      #     echo "::set-output name=changed_lines::${CHANGED_LINES}"
+      - name: Get changed lines
+        id: get_changed_lines
+        run: |
+          CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
+          echo "::set-output name=changed_lines::${CHANGED_LINES}"
 
       # - name: Lint changed lines
       #   run: |
