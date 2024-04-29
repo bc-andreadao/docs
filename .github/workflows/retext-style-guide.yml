@@ -27,7 +27,9 @@ jobs:
         uses: actions/setup-node@v4
 
       - name: Install dependencies
-        run: npm install -g
+        run: |
+          npm install -g
+          npm list -g
 
       - name: Get changed lines
         id: get_changed_lines
