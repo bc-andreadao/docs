@@ -42,7 +42,8 @@ jobs:
           ls -l lint.sh
 
       - name: Run linting script
-        run: ../../lint.sh
+        run: |
+          @/lint.sh
 
 
 
