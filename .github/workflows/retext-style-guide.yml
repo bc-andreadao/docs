@@ -29,8 +29,8 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          npm list --dev
-          ls -la ./node_modules/.bin
+          npm list
+          ls -la ./node_modules
 
       - name: Get changed lines
         id: get_changed_lines
