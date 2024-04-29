@@ -39,8 +39,15 @@ jobs:
       - name: Load changed lines from environment file
         run: |
           echo "Value of CHANGED: $CHANGED"
-          echo "$CHANGED" | xargs npx remark --use remark-lint
+          echo "$CHANGED" >> file1.md
 
+      - name: Set executable permission on lint.sh
+        run: |
+          chmod +x lint.sh
+          ls -l lint.sh
+
+      - name: Run linting script
+        run: ../../lint.sh
 
 
 
