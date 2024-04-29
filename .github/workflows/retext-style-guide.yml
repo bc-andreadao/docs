@@ -36,6 +36,9 @@ jobs:
           echo "Value of changed lines: ${CHANGED_LINES}"
           echo "${CHANGED_LINES}" >> file1.md
 
+      - name: View contents of file1.md
+        run: cat file1.md
+
       - name: Set executable permission on lint.sh
         run: |
           chmod +x lint.sh
