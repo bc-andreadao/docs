@@ -34,12 +34,7 @@ jobs:
         run: |
           CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
           echo "Value of changed lines: ${CHANGED_LINES}"
-          echo "CHANGED=${CHANGED_LINES}" >> $GITHUB_ENV
-
-      - name: Load changed lines from environment file
-        run: |
-          echo "Value of CHANGED: $CHANGED"
-          echo "$CHANGED" >> file1.md
+          echo "${CHANGED_LINES}" >> file1.md
 
       - name: Set executable permission on lint.sh
         run: |
