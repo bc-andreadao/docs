@@ -40,10 +40,9 @@ jobs:
         run: |
           chmod +x lint.sh
           ls -l lint.sh
-
+        
       - name: Run linting script
-        run: |
-          @/lint.sh
+        run: ./lint.sh
 
 
 
