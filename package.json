@@ -26,9 +26,9 @@
     "eslint": "^8.34.0",
     "eslint-plugin-mdx": "^2.0.5",
     "remark": "^13.0.0",
-    "remark-cli": "",
+    "remark-cli": "^12",
     "remark-lint": "^9.0.0",
-    "remark-lint-no-dead-urls": ""
+    "remark-lint-no-dead-urls": "1.1.0"
   },
   "author": "Matthew Volk"
 }
