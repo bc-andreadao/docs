@@ -30,7 +30,7 @@ jobs:
         run: |
           npm install 
           npm list
-          ls -al ./node_modules/.bin/remark-cli
+          ls -al ./node_modules/.bin
 
       - name: Get changed lines
         id: get_changed_lines
