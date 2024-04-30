@@ -3,4 +3,4 @@
 echo "testing!"
 
 # Example linting commands
-remark file1.md
+npx remark file1.md
