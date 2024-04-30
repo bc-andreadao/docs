@@ -30,7 +30,7 @@ jobs:
         run: |
           npm install
           npm list
-          ls -la ./node_modules/.bin
+          ls -la ./node_modules/.bin | more
 
       - name: Get changed lines
         id: get_changed_lines
