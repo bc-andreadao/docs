@@ -29,6 +29,8 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          npm uninstall remark
+          npm install remark
           npm list
           ls -la ./node_modules/remark
 
