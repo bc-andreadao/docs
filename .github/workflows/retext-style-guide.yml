@@ -30,7 +30,7 @@ jobs:
         run: |
           npm install
           npm list
-          ls -la ./node_modules/remark/.bin
+          echo "export PATH=$PATH:./node_modules/.bin" >> $GITHUB_ENV
 
       - name: Get changed lines
         id: get_changed_lines
