@@ -23,4 +23,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           filter_mode: added
-          diff: git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq
+          before_commit: ${{ github.event.before }}
+          after_commit: ${{ github.sha }}
