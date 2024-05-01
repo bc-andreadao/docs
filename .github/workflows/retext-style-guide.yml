@@ -3,54 +3,24 @@ name: Lint changed lines
 on:
   push:
     branches:
-      - test
+      - test2
 
 jobs:
   lint_changed_lines:
+    name: runner / retext-style-guide
     runs-on: ubuntu-latest
 
     steps:
 
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: test2
+          fetch-depth: 0
 
-      - name: Upgrade npm to latest version
-        run: npm install -g npm@latest
-
-      - name: Print npm version
-        run: npm --version
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Get changed lines
-        id: get_changed_lines
-        run: |
-          CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
-          echo "Value of changed lines: ${CHANGED_LINES}"
-          echo "CHANGED=${CHANGED_LINES}" >> $GITHUB_ENV
-
-      - name: Load changed lines from environment file
-        run: |
-          echo "Value of CHANGED: $CHANGED"
-#         echo "$CHANGED" | xargs npx remark --use remark-lint
-
-
-
-
-# name: remark
-# on: [pull_request]
-# jobs:
-#   remark:
-#     name: runner / retext-style-guide
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: ./.github/actions/retext-style-guide
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           reporter: github-pr-review
-#           filter_mode: added
+      - uses: ./.github/actions/retext-style-guide
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          filter_mode: added
+          diff: git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq
