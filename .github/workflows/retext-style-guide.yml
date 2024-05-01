@@ -1,9 +1,6 @@
 name: Lint changed lines
 
-on:
-  push:
-    branches:
-      - test2
+on: pull_request
 
 jobs:
   lint_changed_lines:
@@ -15,7 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: test2
           fetch-depth: 0
 
       - uses: ./.github/actions/retext-style-guide
