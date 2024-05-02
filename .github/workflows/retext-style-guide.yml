@@ -1,14 +1,10 @@
-name: Lint changed lines
-
-on: pull_request
-
+name: remark
+on: [pull_request]
 jobs:
-  lint_changed_lines:
+  remark:
     name: runner / retext-style-guide
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v4
         with:
