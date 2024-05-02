@@ -1,13 +1,70 @@
-name: remark
-on: [pull_request]
+name: Lint changed lines
+
+on:
+  push:
+    branches:
+      - test
+
 jobs:
-  remark:
-    name: runner / retext-style-guide
+  lint_changed_lines:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/retext-style-guide
+
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          filter_mode: added
+          ref: test
+          fetch-depth: 0
+
+      - name: Upgrade npm to latest version
+        run: npm install -g npm@latest
+
+      - name: Print npm version
+        run: npm --version
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: |
+          npm install 
+          npm list
+          ls -al ./node_modules/.bin
+
+      - name: Get changed lines
+        id: get_changed_lines
+        run: |
+          CHANGED_LINES=$(git diff --unified=0 ${{ github.event.before }} ${{ github.sha }} | grep '^\+' | sed 's/^+//' | grep -v '^\+\+\+' | sed 's/:[[:digit:]]\+:.*//' | uniq)
+          echo "Value of changed lines: ${CHANGED_LINES}"
+          echo "${CHANGED_LINES}" >> file1.md
+
+      - name: View contents of file1.md
+        run: cat file1.md
+
+      - name: Set executable permission on lint.sh
+        run: |
+          chmod +x lint.sh
+          ls -l lint.sh
+        
+      - name: Run linting script and report with reviewdog
+        run: |
+          ./lint.sh | reviewdog -f=remark -name=remark -reporter=github-pr-check
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+# name: remark
+# on: [pull_request]
+# jobs:
+#   remark:
+#     name: runner / retext-style-guide
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: ./.github/actions/retext-style-guide
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           reporter: github-pr-review
+#           filter_mode: added
